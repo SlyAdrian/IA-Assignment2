@@ -8,11 +8,6 @@ from PIL import Image
 
 
 
-def main():
-    print("AJKSNDKJ")
-
-main()
-
 class Map_Obj():
     def __init__(self, task=1):
         self.start_pos, self.goal_pos, self.end_goal_pos, self.path_to_map = self.fill_critical_positions(
@@ -244,3 +239,16 @@ class Map_Obj():
                                y * scale + j] = colors[map[y][x]]
         # Show image
         image.show()
+
+
+def main():
+    print("Start of Program")
+    object = Map_Obj()
+    map = object.read_map(path ="./Samfundet_map_1.csv")
+    print(map[0])
+    object.show_map(map =map[1])
+
+main()
+
+
+    
