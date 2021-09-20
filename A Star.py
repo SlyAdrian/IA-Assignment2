@@ -3,9 +3,9 @@ import time
 
 from Map import Map_Obj
 import pandas as pd
-
+from utils import sort_nodes
 from PIL import Image
-
+from node import Node
 
 
 np.set_printoptions(threshold=np.inf, linewidth=300)
@@ -24,7 +24,12 @@ def main():
     task1 = Map_Obj(task=1)
 
     # Beginning of the algorithm
-    openList.append(task1.get_start_pos)
+    openList.append(Node(location=task1.get_start_pos, f_value = 0))
+
+    while len(openList) != 0 :
+        sort_nodes(openList)
+        
+    
 
 """ def main():    
     object = Map.Map_Obj()            #Get the New Map
@@ -43,19 +48,5 @@ def main():
 			
     
     pass """
-
-def FValue(Coordinate):
-    #Must be implemented
-    return
-
-def CreateOpenList2D(Map):					#Creates A 2D Map of all the nodes for faster lookup whether we have found the Node already or not
-	OpenList2D = []
-	for i in range(len(Map)):
-		OpenList2D.append([])
-		for j in range(len(Map[i])):
-			OpenList2D[i].append(False)
-	#print(OpenList2D)
-	return OpenList2D
-
      
 main()
