@@ -238,3 +238,16 @@ class Map_Obj():
                                y * scale + j] = colors[map[y][x]]
         # Show image
         image.show()
+
+
+""" def main():
+    print("Start of Program")
+    object = Map_Obj()
+    map = object.read_map(path ="./Samfundet_map_1.csv")
+    print(map[0])
+    object.show_map(map =map[1])
+
+main() """
+
+
+    

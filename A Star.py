@@ -3,7 +3,7 @@ import time
 
 from Map import Map_Obj
 import pandas as pd
-from utils import sort_nodes
+from utils import create_open_list_2D, sort_nodes, get_neighbours
 from PIL import Image
 from node import Node
 
@@ -26,9 +26,20 @@ def main():
     # Beginning of the algorithm
     openList.append(Node(location=task1.get_start_pos, f_value = 0))
 
-    while len(openList) != 0 :
-        sort_nodes(openList)
+    """ while len(openList) != 0 : """
         
+    # Sorting of the openList to get the lower f value as the first element of the list
+    sort_nodes(openList)
+
+    current = openList[0]
+    map= task1.get_maps()[0]
+
+    # Recovering of all the neighbours of the current node 
+    get_neighbours(map= map, location= task1.get_start_pos())
+
+    # Creation of the false list to keep in memory the opened nodes
+    print(create_open_list_2D(map))
+    
     
 
 """ def main():    
@@ -48,5 +59,11 @@ def main():
 			
     
     pass """
+
+    
+    
+
+
+
      
 main()
