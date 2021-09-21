@@ -52,11 +52,28 @@ def main():
 
         # Recovering of all the neighbours of the current node 
         neighbours = get_neighbours(map= map, location = current.location)
+        
         for n in neighbours :
             
             # If n is the goal : stop
             if np.array_equal(n, task1.end_goal_pos) :
+
+                end_node = Node(location= n, parent= current)
+
+                openList.append(end_node)
                 print(i)
+
+                goal = task1.start_pos
+                travelled = end_node
+
+                # Display of the final path
+                while travelled.location != goal:
+                    
+                    # Changing the colour of the travelled node
+                    map_str[travelled.location[0]][travelled.location[1]] = ';'
+
+                    travelled = travelled.parent
+
                 return
             
             # Calculate neighbour g
@@ -76,7 +93,7 @@ def main():
 
                 if n_f < openList2d[n[0]][n[1]].f_value :
                     openList2d[n[0]][n[1]].set_f_value(n_f)
-                    openList2d[n[0]][n[1]].set_parent(current.location)
+                    openList2d[n[0]][n[1]].set_parent(current)
                 else :    
                     continue
 
@@ -85,22 +102,28 @@ def main():
 
                 if n_f < openList2d[n[0]][n[1]].f_value :
                     openList2d[n[0]][n[1]].set_f_value(n_f)
-                    openList2d[n[0]][n[1]].set_parent(current.location)
+                    openList2d[n[0]][n[1]].set_parent(current)
                 else :    
                     continue
             
             # Otherwise add the neighbour to the openList
-            new_node = Node(location= n, f_value= n_f, path_cost= n_g, open= True, parent= current.location)
+            new_node = Node(location= n, f_value= n_f, path_cost= n_g, open= True, parent= current)
             openList.append(new_node)
 
             # Updating of the openList2d with the reference of the new node added to open list
             openList2d[n[0]][n[1]] = new_node
             
-        
-        task1.show_map(map= map_str)
+        # Show the map of the path taken at each step
+        """ task1.show_map(map= map_str) """
 
         # Add to the closed list
-        closedList.append(current)    
+        closedList.append(current)
+
+    # Display of the final path
+    task1.show_map(map= map_str)
+
+    
+    
     
 """ def main():    
     object = Map.Map_Obj()            #Get the New Map
