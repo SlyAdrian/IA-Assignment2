@@ -3,7 +3,7 @@ import time
 
 from Map import Map_Obj
 import pandas as pd
-from utils import create_open_list_2D, sort_nodes, get_neighbours
+from utils import create_open_list_2D, euclidian_distance, is_present, sort_nodes, get_neighbours
 from PIL import Image
 from node import Node
 
@@ -17,31 +17,64 @@ def main():
 
     # Initialization of the map 
     
+    task1 = Map_Obj(task=1)
+    map= task1.get_maps()[0]
+
     # Initialization of the 2 lists
     openList = []
     closedList = []
-    
-    task1 = Map_Obj(task=1)
+
+    # Creation of the false list to keep in memory the opened nodes
+    openList2d = create_open_list_2D(map)
 
     # Beginning of the algorithm
-    openList.append(Node(location=task1.get_start_pos, f_value = 0))
+    openList.append(Node(location=task1.start_pos, f_value = 0))
 
     """ while len(openList) != 0 : """
         
-    # Sorting of the openList to get the lower f value as the first element of the list
+    # Sorting of the openList to get the node with the lower f value as the first element of the list
     sort_nodes(openList)
-
     current = openList[0]
-    map= task1.get_maps()[0]
+
+    # Removal of the current node from the open list
+    openList.remove(current)
 
     # Recovering of all the neighbours of the current node 
-    get_neighbours(map= map, location= task1.get_start_pos())
+    neighbours = get_neighbours(map= map, location = current.location)
 
-    # Creation of the false list to keep in memory the opened nodes
-    print(create_open_list_2D(map))
-    
-    
+    for n in neighbours :
+        
+        # If n is the goal : stop
+        if np.array_equal(n, task1.end_goal_pos) :
+            break
+        
+        # Calculate neighbour g
+        n_g = current.path_cost 
 
+        # Calculate neighbour h 
+        n_h = euclidian_distance(current= current.location, goal=task1.end_goal_pos)
+
+        # Caluculate neighbour f
+        n_f = n_g + n_h
+
+        # Check whether the neighbour is already in the open list and if its f value if lower than neighbour's f value
+        """ if is_present(n, openList) and n_f > openList.index(n):
+            continue
+         """
+        if not isinstance(openList2d[n[0]][n[1]], bool) and n_f > openList2d[n[0]][n[1]].f_value :
+            continue
+
+        # Check wheter the neighbour is already in the closed list and if its f value is lower thant neighbour's f value
+        if not isinstance(openList2d[n[0]][n[1]], bool) and n_f > openList2d[n[0]][n[1]].f_value :
+            continue 
+        
+        # Otherwise add the neighbour to the openList
+        openList.append(Node(location= n, f_value= n_f, path_cost= n_g, open= True, parent= current.location))
+        # TODO : Update openList2d 
+        
+    # Add to the closed list
+    closedList.append(current)    
+        
 """ def main():    
     object = Map.Map_Obj()            #Get the New Map
     map = object.read_map(path ="./Samfundet_map_1.csv")

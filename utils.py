@@ -19,7 +19,7 @@ def sort_nodes(list):
 
     return list
 
-#Takes the Map and Coordinate and returns its Valid Neighbors in a List with their Values
+# Takes the Map and Coordinate and returns its Valid Neighbors in a List with their Values
 def get_neighbours(map, location):
     assert len(map) > 0 and location[0] in range(0, len(map)) and location[1] in range(0, len(map[0])), "Initial location is not within the map range"
 
@@ -59,4 +59,10 @@ def FValue(Coordinate):
 def create_open_list_2D(map):
     return [[False for j in range(len(map) + 1)] for i in range(len(map[0]) + 1)]
 
+# Returns true if the element is in the list of nodes
+def is_present(location, list):
+    for n in list:
+        if n.location == location:
+            return True
 
+    return False 

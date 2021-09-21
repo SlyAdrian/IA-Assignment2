@@ -1,9 +1,10 @@
 class Node:
-    def __init__(self, location = [0,0], f_value = 0, path_cost = 0 , open = True):
+    def __init__(self, location = [0, 0], parent = None, f_value = 0, path_cost = 0 , open = None):
         self.f_value = f_value
         self.path_cost = path_cost
         self.open = open
         self.location = location
+        self.parent = parent
 
     def set_f_value(self, f_value):
         self.f_value = f_value
@@ -15,6 +16,9 @@ class Node:
         self.open = open
     
     def set_location(self, location):
+        self.location = location
+
+    def set_parent(self, location):
         self.location = location
 
     def get_f_value(self):
