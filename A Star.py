@@ -3,7 +3,7 @@ import time
 
 from Map import Map_Obj
 import pandas as pd
-from utils import create_open_list_2D, euclidian_distance, is_present, sort_nodes, get_neighbours
+from utils import create_open_list_2D, euclidian_distance, sort_nodes, get_neighbours
 from PIL import Image
 from node import Node
 
@@ -19,6 +19,7 @@ def main():
     
     task1 = Map_Obj(task=1)
     map= task1.get_maps()[0]
+    map_str = task1.get_maps()[1]
 
     # Initialization of the 2 lists
     openList = []
@@ -38,11 +39,13 @@ def main():
         i+=1
 
         if i > len(map) * len(map[0]):
-            break
+            return
             
         # Sorting of the openList to get the node with the lower f value as the first element of the list
         sort_nodes(openList)
         current = openList[0]
+
+        map_str[current.location[0]][current.location[1]] = ':'
 
         # Removal of the current node from the open list
         openList.remove(current)
@@ -94,6 +97,8 @@ def main():
             openList2d[n[0]][n[1]] = new_node
             
         
+        task1.show_map(map= map_str)
+
         # Add to the closed list
         closedList.append(current)    
     
