@@ -56,8 +56,9 @@ def FValue(Coordinate):
     #Must be implemented
     return
 
+# Only work for maps that 
 def create_open_list_2D(map):
-    return [[False for j in range(len(map) + 1)] for i in range(len(map[0]) + 1)]
+    return [[False for j in range(len(map[0]))] for i in range(len(map))]
 
 # Returns true if the element is in the list of nodes
 def is_present(location, list):
