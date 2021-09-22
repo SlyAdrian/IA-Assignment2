@@ -57,7 +57,7 @@ def main():
             
             # If n is the goal : stop
             if np.array_equal(n, task1.end_goal_pos) :
-                print("Answer found in  iterations :", i)
+                print("Answer found in", i, "iterations")
 
                 end_node = Node(location= n, parent= current)
 
@@ -74,41 +74,47 @@ def main():
 
                     travelled = travelled.parent
 
+                # Display of the final path
+                task1.show_map(map= map_str)
+                
                 return
             
             # Calculate neighbour g
-            n_g = current.path_cost 
+            n_g = current.path_cost + map[current.location[0]][current.location[1]]
+
             # Calculate neighbour h
             n_h = euclidian_distance(current= current.location, goal= task1.end_goal_pos)
+
             # Caluculate neighbour f
             n_f = n_g + n_h
+
             # Check whether the neighbour is already in the open list and if its f value if lower than neighbour's f value
             """ if is_present(n, openList) and n_f > openList.index(n):
                 continue
             """
             if not isinstance(openList2d[n[0]][n[1]], bool) and openList2d[n[0]][n[1]].open == True:
                 if n_f < openList2d[n[0]][n[1]].f_value :
-                    """ print("the starting position is :", task1.start_pos)
-                    print("iteration number : ", i)
-                    print(openList2d[n[0]][n[1]].__str__()) """
+                    
                     openList2d[n[0]][n[1]].set_f_value(n_f)
                     openList2d[n[0]][n[1]].set_parent(parent= current)
-                    """ print(openList2d[n[0]][n[1]].__str__()) """
                     
                 else :    
                     continue
-            # Check wheter the neighbour is already in the closed list and if its f value is lower thant neighbour's f value
+
+            # Check wheter the neighbour is already in the closed list and if its f value is lower than neighbour's f value
             if not isinstance(openList2d[n[0]][n[1]], bool) and openList2d[n[0]][n[1]].open == False:
                 if n_f < openList2d[n[0]][n[1]].f_value :
+
                     openList2d[n[0]][n[1]].set_f_value(n_f)
                     openList2d[n[0]][n[1]].set_parent(parent= current)
-                    """ print(openList2d[n[0]][n[1]]) """
+                    
                 else :    
                     continue
             
             # Otherwise add the neighbour to the openList
             new_node = Node(location= n, f_value= n_f, path_cost= n_g, open= True, parent= current)
             openList.append(new_node)
+            
             # Updating of the openList2d with the reference of the new node added to open list
             openList2d[n[0]][n[1]] = new_node
 
