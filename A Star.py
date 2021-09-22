@@ -76,12 +76,12 @@ def main():
 
                 # Display of the final path
                 task1.show_map(map= map_str)
-                
+
                 return
             
             # Calculate neighbour g
             n_g = current.path_cost + map[current.location[0]][current.location[1]]
-
+            
             # Calculate neighbour h
             n_h = euclidian_distance(current= current.location, goal= task1.end_goal_pos)
 
