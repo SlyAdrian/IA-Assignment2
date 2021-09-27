@@ -29,15 +29,3 @@ class Node:
     
     def __str__(self):
         return f'f value : {self.f_value}\t path cost : {self.path_cost}\t open : {self.open}\t location : {self.location} \n parent: {self.parent}'
-        
-
-
-# Testing code
-
-n1 = Node(15, 10, True, [0,1])
-""" print(n1.get_attributes())
-v1 = n1.get_f_value()
-print(v1)
-n1.set_location(location=[1,2])
-n1.set_parent(parent=[1,2])
-print(n1.get_attributes()) """

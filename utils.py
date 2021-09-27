@@ -52,18 +52,7 @@ def get_neighbours(map, location):
     
     return neighboors
 
-def FValue(Coordinate):
-    #Must be implemented
-    return
-
-# Only work for maps that 
+# Map created to keep in memory the state of each location in the map without having to go through the list at each iteration. 
+# (e.g. heuristic function)
 def create_open_list_2D(map):
     return [[False for j in range(len(map[0]))] for i in range(len(map))]
-
-# Returns true if the element is in the list of nodes
-def is_present(location, list):
-    for n in list:
-        if n.location == location:
-            return True
-
-    return False 

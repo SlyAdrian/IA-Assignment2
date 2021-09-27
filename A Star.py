@@ -60,9 +60,8 @@ def task(number):
         # Sorting of the openList to get the node with the lower f value as the first element of the list
         sort_nodes(openList)
         current = openList[0]
-
-        """ print(current.get_attributes()) """
-
+        
+        # Shows the nodes we have passed through (openList)
         map_str[current.location[0]][current.location[1]] = ','
 
         # Removal of the current node from the open list
@@ -72,8 +71,10 @@ def task(number):
         neighbours = get_neighbours(map= map, location = current.location)
         for n in neighbours :
             
-            # If n is the goal : stop
+            # If n is the goal : stop & display the final path
             if np.array_equal(n, task1.end_goal_pos) :
+                
+                print("Task number :", number)
                 print("Answer found in", i, "iterations")
 
                 end_node = Node(location= n, parent= current)
@@ -87,7 +88,6 @@ def task(number):
                 while travelled.location != goal:
                     
                     # Changing the colour of the travelled node
-
                     map_str[travelled.location[0]][travelled.location[1]] = 'L'
 
                     travelled = travelled.parent
@@ -107,9 +107,6 @@ def task(number):
             n_f = n_g + n_h
 
             # Check whether the neighbour is already in the open list and if its f value if lower than neighbour's f value
-            """ if is_present(n, openList) and n_f > openList.index(n):
-                continue
-            """
             if not isinstance(openList2d[n[0]][n[1]], bool) and openList2d[n[0]][n[1]].open == True:
                 if n_f < openList2d[n[0]][n[1]].f_value :
                     
@@ -119,7 +116,7 @@ def task(number):
                 else :    
                     continue
 
-            # Check wheter the neighbour is already in the closed list and if its f value is lower than neighbour's f value
+            # Check whether the neighbour is already in the closed list and if its f value is lower than neighbour's f value
             if not isinstance(openList2d[n[0]][n[1]], bool) and openList2d[n[0]][n[1]].open == False:
                 if n_f < openList2d[n[0]][n[1]].f_value :
 
@@ -139,6 +136,8 @@ def task(number):
         # Change current's status and Add to the closed list
         current.set_open(False)
         openList2d[current.location[0]][current.location[1]].set_open(False) 
+
+        # Finally we add the node to the closed list.
         closedList.append(current)    
 
 main()
