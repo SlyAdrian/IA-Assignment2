@@ -3,7 +3,7 @@ import time
 
 from Map import Map_Obj
 import pandas as pd
-from utils import create_open_list_2D, euclidian_distance, sort_nodes, get_neighbours
+from utils import create_open_list_2D, euclidian_distance, sort_nodes, get_neighbours, manhattan_distance
 from PIL import Image
 from node import Node
 
@@ -28,8 +28,10 @@ def main():
 def task(number):
     assert 1 <= number <= 4, "The task number must be an integer within [1,4] !"
 
+
     # Initialization of the map 
     task1 = Map_Obj(task=number)
+
     map= task1.get_maps()[0]
     map_str = task1.get_maps()[1]
 
@@ -59,6 +61,10 @@ def task(number):
         sort_nodes(openList)
         current = openList[0]
 
+        """ print(current.get_attributes()) """
+
+        map_str[current.location[0]][current.location[1]] = ','
+
         # Removal of the current node from the open list
         openList.remove(current)
 
@@ -81,9 +87,11 @@ def task(number):
                 while travelled.location != goal:
                     
                     # Changing the colour of the travelled node
-                    map_str[travelled.location[0]][travelled.location[1]] = ';'                    
+
+                    map_str[travelled.location[0]][travelled.location[1]] = 'L'
+
                     travelled = travelled.parent
-                
+
                 # Display of the final path
                 task1.show_map(map= map_str)
 
@@ -133,6 +141,5 @@ def task(number):
         openList2d[current.location[0]][current.location[1]].set_open(False) 
         closedList.append(current)    
 
-
-
 main()
+
