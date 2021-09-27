@@ -10,12 +10,26 @@ from node import Node
 
 np.set_printoptions(threshold=np.inf, linewidth=300)
 def main():
-    print("Start of the A*")
     
+    print("Start of the A*")
     #### TASK 1 ####
-    # Initialization of the map 
+    task(number=1)
 
-    task1 = Map_Obj(task=1)
+    #### TASK 2 ####
+    task(number=2)
+    
+    #### TASK 3 ####
+    task(number=3)
+
+    #### TASK 4 ####
+    task(number=4)
+
+
+def task(number):
+    assert 1 <= number <= 4, "The task number must be an integer within [1,4] !"
+
+    # Initialization of the map 
+    task1 = Map_Obj(task=number)
     map= task1.get_maps()[0]
     map_str = task1.get_maps()[1]
 
@@ -44,9 +58,6 @@ def main():
         # Sorting of the openList to get the node with the lower f value as the first element of the list
         sort_nodes(openList)
         current = openList[0]
-        """ print(current.get_attributes()) """
-
-        map_str[current.location[0]][current.location[1]] = ':'
 
         # Removal of the current node from the open list
         openList.remove(current)
@@ -70,10 +81,9 @@ def main():
                 while travelled.location != goal:
                     
                     # Changing the colour of the travelled node
-                    map_str[travelled.location[0]][travelled.location[1]] = ';'
-
+                    map_str[travelled.location[0]][travelled.location[1]] = ';'                    
                     travelled = travelled.parent
-
+                
                 # Display of the final path
                 task1.show_map(map= map_str)
 
@@ -118,12 +128,11 @@ def main():
             # Updating of the openList2d with the reference of the new node added to open list
             openList2d[n[0]][n[1]] = new_node
 
-
-        
-
         # Change current's status and Add to the closed list
         current.set_open(False)
         openList2d[current.location[0]][current.location[1]].set_open(False) 
         closedList.append(current)    
+
+
 
 main()
